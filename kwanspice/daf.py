@@ -915,7 +915,7 @@ class double_array_file:
         elif self.LOCFMT=="BIG-IEEE":
             self.endian=">"
         else:
-            raise ValueError("Unknown double-precision format %s"%self.LOCFMT)
+            raise ValueError(f"Unknown double-precision format `{self.LOCFMT}`")
         self.iformat=self.endian+"i"
         self.dformat=self.endian+"d"
         self.ND=struct.unpack(self.iformat,buf[ 8: 8+4])[0] #Address  8, number of components in each array summary
