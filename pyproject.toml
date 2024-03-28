@@ -22,6 +22,9 @@ dependencies=[
     "kwanmath @ git+ssh://git@github.com/kwan3217/kwanmath.git"
 ]
 
+[project.scripts]
+spkdump="kwanspice.daf:spkdump"
+
 [project.urls]
 Homepage = "https://github.com/kwan3217/kwanmath/"
 Issues = "https://github.com/kwan3217/kwanmath/issues"
