@@ -16,7 +16,7 @@ class daf_summary:
         elif daf.subtype=="CK":
             return daf_CKsummary(sr,daf,buf,name)
         else:
-            raise ValueError("Unrecognized subtype %s"%daf.subtype)
+            raise ValueError(f"Unrecognized subtype {daf.subtype}")
     def __init__(self,sr,daf,buf,name):
         """
 
@@ -66,17 +66,15 @@ class daf_SPKsummary(daf_summary):
     addr0 =property(fget=getaddr0 ,doc="Address of first element of segment data")
     addr1 =property(fget=getaddr1 ,doc="Address of last element of segment data")
     def __str__(self):
-        result=(("%s\n"+
-                 "ET0:    %30.14f (%s)\n"+
-                 "ET1:    %30.14f (%s)\n"+
-                 "Target: %d\n"+
-                 "Center: %d\n"+
-                 "Frame:  %d\n"+
-                 "Type:   %d\n"+
-                 "Addr0:  %d\n"+
-                 "Addr1:  %d") %
-                (self.name,self.et0,cspice_etcal(self.et0),self.et1,cspice_etcal(self.et1),self.target,self.center,self.frame,self.type,self.addr0,self.addr1))
-        return result
+        return(f"{self.name}\n"
+               f"ET0:    {self.et0:30.14f} ({cspice_etcal(self.et0)})\n"
+               f"ET1:    {self.et1:30.14f} ({cspice_etcal(self.et1)})\n"
+               f"Target: {self.target}\n"
+               f"Center: {self.center}\n"
+               f"Frame:  {self.frame}\n"
+               f"Type:   {self.type}\n"
+               f"Addr0:  {self.addr0}\n"
+               f"Addr1:  {self.addr1}")
     def segment(self):
         return daf_SPKSegment(self,self.daf)
 
@@ -161,14 +159,13 @@ class daf_SPKSegment:
         elif self.summary.type == 17:
             return daf_SPK17line(self.N, i, self.buf)
         else:
-            raise ValueError("Unhandled SPK type %d"%self.summary.type)
+            raise ValueError(f"Unhandled SPK type {self.summary.type}")
     def __iter__(self):
         for i in range(self.N):
             result = self.line(i)
             yield result
     def __str__(self):
-        result=(("N: %d") %
-                (self.N))
+        result=(f"N: {self.N}")
         return result
 
 class daf_CKSegment:
