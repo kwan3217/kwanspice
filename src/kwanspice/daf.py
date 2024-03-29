@@ -148,8 +148,10 @@ class daf_SPKSegment:
             return daf_SPK01line(self.N,i,self.buf)
         elif self.summary.type==2:
             return daf_SPK02line(self.N,i,self.buf)
-        elif self.summary.type==3:
-            return daf_SPK03line(self.N,i,self.buf)
+        elif self.summary.type == 3:
+            return daf_SPK03line(self.N, i, self.buf)
+        elif self.summary.type == 5:
+            return daf_SPK05line(self.N, i, self.buf)
         elif self.summary.type==9:
             return daf_SPK09line(self.N,i,self.buf)
         elif self.summary.type == 13:
@@ -229,6 +231,14 @@ class daf_SPK09line(daf_SPKStateline):
 class daf_SPK13line(daf_SPKStateline):
     def __init__(self,N,i,buf):
         super().__init__(N,i,buf)
+
+
+class daf_SPK05line(daf_SPKStateline):
+    def __init__(self,N,i,buf):
+        super().__init__(N,i,buf)
+        self.gm=buf[-2]
+        self.csvheader+=f",gm={self.gm:22.15e}"
+
 
 class daf_SPK02line:
     def __init__(self,N,i,buf):
